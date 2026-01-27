@@ -1,0 +1,914 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>sakila_master.db Database Schema</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <style type="text/css">
+                    body { background-color: #fff; color: #000; font-family: Consolas, monospace}
+                    a:link { color: #03d; }
+                    a:visited { color: #039; }
+                    a:hover { color: #09f; }
+                    table { border-collapse: collapse; width: 100%; }
+                    table caption { color: #666; text-align: right; font-size: 65%; margin-bottom: .5ex; }
+                    table td, table th { border: solid 1px #666; border-collapse: collapse; padding: .3ex .5ex; vertical-align: top; }
+                    table tbody tr:hover { background-color: #ffc; }
+                    table thead th { text-align: left; background-color: #ccc; }
+                    table tbody th { text-align: left; white-space: nowrap; }
+                    .table { page-break-inside: avoid; }
+                    .pk { float: right; cursor: arrow; color: #999; }
+                    .type { white-space: nowrap; }
+                    .null { text-align: center; }
+                    .flag { white-space: nowrap; font-size: 70%; display: inline-block; border: solid 1px #ccc; padding: .25ex .5ex; background-color: #ddd; margin-right: 1ex; }
+                    .tocref { float: right; text-decoration: none; font-weight: normal; }
+                    .footer { text-align: center; margin-top: 1em; font-size: 80%;}
+                    li.view:before { content: "VIEW"; font-size: 70%; display: inline-block; border: solid 1px #ccc; padding: .25ex .5ex; background-color: #ddd; margin-right: 1ex; }
+                    @media print {
+                    body { font-size: .8em; }
+                    #toc, .tocref { display: none; }
+                    a:link, a:visited { color: #000; text-decoration: none; }
+                    }
+                </style>
+  </head>
+  <body>
+    <h1>sakila_master.db Database Schema</h1>
+    <div id="toc">
+      <ul>
+        <li class="table"><a href="#actor">actor</a></li>
+        <li class="table"><a href="#address">address</a></li>
+        <li class="table"><a href="#category">category</a></li>
+        <li class="table"><a href="#city">city</a></li>
+        <li class="table"><a href="#country">country</a></li>
+        <li class="table"><a href="#customer">customer</a></li>
+        <li class="table"><a href="#film">film</a></li>
+        <li class="table"><a href="#film_actor">film_actor</a></li>
+        <li class="table"><a href="#film_category">film_category</a></li>
+        <li class="table"><a href="#film_text">film_text</a></li>
+        <li class="table"><a href="#inventory">inventory</a></li>
+        <li class="table"><a href="#language">language</a></li>
+        <li class="table"><a href="#payment">payment</a></li>
+        <li class="table"><a href="#rental">rental</a></li>
+        <li class="table"><a href="#staff">staff</a></li>
+        <li class="table"><a href="#store">store</a></li>
+      </ul>
+    </div>
+    <div class="table">
+      <h2 id=""><a href="#toc" class="tocref">⇧</a>
+        Database Properties
+      </h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="type">Database</td>
+            <td class="type">C:\Users\LEPRINCER\source\repos\Raph8277\ARP.ONE\ARP.ONE.Data\sakila_master.db</td>
+          </tr>
+          <tr>
+            <td class="type">ServerVersion</td>
+            <td class="type">3.46.1</td>
+          </tr>
+          <tr>
+            <td class="type">DatabaseSize</td>
+            <td class="type">5,523 MB</td>
+          </tr>
+          <tr>
+            <td class="type">Created</td>
+            <td class="type">26/01/2026 14:38</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table">
+      <h2 id="actor"><a href="#toc" class="tocref">⇧</a>Table actor</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:30ex">Name</th>
+            <th style="width:20ex">Type</th>
+            <th style="width:4ex">NULL</th>
+            <th>Comment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th><span class="pk" title="PRIMARY KEY sqlite_autoindex_actor_1">◆</span>actor_id</th>
+            <td class="type">numeric (53, 0)</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <th>first_name</th>
+            <td class="type">nvarchar (45)</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <th>last_name</th>
+            <td class="type">nvarchar (45)</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <th>last_update</th>
+            <td class="type">timestamp</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table">
+      <h2 id="address"><a href="#toc" class="tocref">⇧</a>Table address</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:30ex">Name</th>
+            <th style="width:20ex">Type</th>
+            <th style="width:4ex">NULL</th>
+            <th>Comment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th><span class="pk" title="PRIMARY KEY sqlite_autoindex_address_1">◆</span>address_id</th>
+            <td class="type">int</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <th>address</th>
+            <td class="type">nvarchar (50)</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <th>address2</th>
+            <td class="type">nvarchar (50)</td>
+            <td class="null">☒</td>
+            <td><span class="flag">DEFAULT NULL</span></td>
+          </tr>
+          <tr>
+            <th>district</th>
+            <td class="type">nvarchar (20)</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <th>city_id</th>
+            <td class="type">int</td>
+            <td class="null">☐</td>
+            <td><span class="flag" title="FK_address_0_0">⇨ <a href="#city">city</a>.city_id</span></td>
+          </tr>
+          <tr>
+            <th>postal_code</th>
+            <td class="type">nvarchar (10)</td>
+            <td class="null">☒</td>
+            <td><span class="flag">DEFAULT NULL</span></td>
+          </tr>
+          <tr>
+            <th>phone</th>
+            <td class="type">nvarchar (20)</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <th>last_update</th>
+            <td class="type">timestamp</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table">
+      <h2 id="category"><a href="#toc" class="tocref">⇧</a>Table category</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:30ex">Name</th>
+            <th style="width:20ex">Type</th>
+            <th style="width:4ex">NULL</th>
+            <th>Comment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th><span class="pk" title="PRIMARY KEY sqlite_autoindex_category_1">◆</span>category_id</th>
+            <td class="type">smallint</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <th>name</th>
+            <td class="type">nvarchar (25)</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <th>last_update</th>
+            <td class="type">timestamp</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table">
+      <h2 id="city"><a href="#toc" class="tocref">⇧</a>Table city</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:30ex">Name</th>
+            <th style="width:20ex">Type</th>
+            <th style="width:4ex">NULL</th>
+            <th>Comment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th><span class="pk" title="PRIMARY KEY sqlite_autoindex_city_1">◆</span>city_id</th>
+            <td class="type">int</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <th>city</th>
+            <td class="type">nvarchar (50)</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <th>country_id</th>
+            <td class="type">smallint</td>
+            <td class="null">☐</td>
+            <td><span class="flag" title="FK_city_0_0">⇨ <a href="#country">country</a>.country_id</span></td>
+          </tr>
+          <tr>
+            <th>last_update</th>
+            <td class="type">timestamp</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table">
+      <h2 id="country"><a href="#toc" class="tocref">⇧</a>Table country</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:30ex">Name</th>
+            <th style="width:20ex">Type</th>
+            <th style="width:4ex">NULL</th>
+            <th>Comment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th><span class="pk" title="PRIMARY KEY sqlite_autoindex_country_1">◆</span>country_id</th>
+            <td class="type">smallint</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <th>country</th>
+            <td class="type">nvarchar (50)</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <th>last_update</th>
+            <td class="type">timestamp</td>
+            <td class="null">☒</td>
+            <td>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table">
+      <h2 id="customer"><a href="#toc" class="tocref">⇧</a>Table customer</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:30ex">Name</th>
+            <th style="width:20ex">Type</th>
+            <th style="width:4ex">NULL</th>
+            <th>Comment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th><span class="pk" title="PRIMARY KEY sqlite_autoindex_customer_1">◆</span>customer_id</th>
+            <td class="type">int</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <th>store_id</th>
+            <td class="type">int</td>
+            <td class="null">☐</td>
+            <td><span class="flag" title="FK_customer_1_0">⇨ <a href="#store">store</a>.store_id</span></td>
+          </tr>
+          <tr>
+            <th>first_name</th>
+            <td class="type">nvarchar (45)</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <th>last_name</th>
+            <td class="type">nvarchar (45)</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <th>email</th>
+            <td class="type">nvarchar (50)</td>
+            <td class="null">☒</td>
+            <td><span class="flag">DEFAULT NULL</span></td>
+          </tr>
+          <tr>
+            <th>address_id</th>
+            <td class="type">int</td>
+            <td class="null">☐</td>
+            <td><span class="flag" title="FK_customer_0_0">⇨ <a href="#address">address</a>.address_id</span></td>
+          </tr>
+          <tr>
+            <th>active</th>
+            <td class="type">char (1)</td>
+            <td class="null">☐</td>
+            <td><span class="flag">DEFAULT 'Y'</span></td>
+          </tr>
+          <tr>
+            <th>create_date</th>
+            <td class="type">timestamp</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <th>last_update</th>
+            <td class="type">timestamp</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table">
+      <h2 id="film"><a href="#toc" class="tocref">⇧</a>Table film</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:30ex">Name</th>
+            <th style="width:20ex">Type</th>
+            <th style="width:4ex">NULL</th>
+            <th>Comment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th><span class="pk" title="PRIMARY KEY sqlite_autoindex_film_1">◆</span>film_id</th>
+            <td class="type">int</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <th>title</th>
+            <td class="type">nvarchar (255)</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <th>description</th>
+            <td class="type">blob sub_type text</td>
+            <td class="null">☒</td>
+            <td><span class="flag">DEFAULT NULL</span></td>
+          </tr>
+          <tr>
+            <th>release_year</th>
+            <td class="type">nvarchar (4)</td>
+            <td class="null">☒</td>
+            <td><span class="flag">DEFAULT NULL</span></td>
+          </tr>
+          <tr>
+            <th>language_id</th>
+            <td class="type">smallint</td>
+            <td class="null">☐</td>
+            <td><span class="flag" title="FK_film_1_0">⇨ <a href="#language">language</a>.language_id</span></td>
+          </tr>
+          <tr>
+            <th>original_language_id</th>
+            <td class="type">smallint</td>
+            <td class="null">☒</td>
+            <td><span class="flag">DEFAULT NULL</span><span class="flag" title="FK_film_0_0">⇨ <a href="#language">language</a>.language_id</span></td>
+          </tr>
+          <tr>
+            <th>rental_duration</th>
+            <td class="type">smallint</td>
+            <td class="null">☐</td>
+            <td><span class="flag">DEFAULT 3</span></td>
+          </tr>
+          <tr>
+            <th>rental_rate</th>
+            <td class="type">decimal (4, 2)</td>
+            <td class="null">☐</td>
+            <td><span class="flag">DEFAULT 4.99</span></td>
+          </tr>
+          <tr>
+            <th>length</th>
+            <td class="type">smallint</td>
+            <td class="null">☒</td>
+            <td><span class="flag">DEFAULT NULL</span></td>
+          </tr>
+          <tr>
+            <th>replacement_cost</th>
+            <td class="type">decimal (5, 2)</td>
+            <td class="null">☐</td>
+            <td><span class="flag">DEFAULT 19.99</span></td>
+          </tr>
+          <tr>
+            <th>rating</th>
+            <td class="type">nvarchar (10)</td>
+            <td class="null">☒</td>
+            <td><span class="flag">DEFAULT 'G'</span></td>
+          </tr>
+          <tr>
+            <th>special_features</th>
+            <td class="type">nvarchar (100)</td>
+            <td class="null">☒</td>
+            <td><span class="flag">DEFAULT NULL</span></td>
+          </tr>
+          <tr>
+            <th>last_update</th>
+            <td class="type">timestamp</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table">
+      <h2 id="film_actor"><a href="#toc" class="tocref">⇧</a>Table film_actor</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:30ex">Name</th>
+            <th style="width:20ex">Type</th>
+            <th style="width:4ex">NULL</th>
+            <th>Comment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th><span class="pk" title="PRIMARY KEY sqlite_autoindex_film_actor_1">◆</span>actor_id</th>
+            <td class="type">int</td>
+            <td class="null">☐</td>
+            <td><span class="flag" title="FK_film_actor_1_0">⇨ <a href="#actor">actor</a>.actor_id</span></td>
+          </tr>
+          <tr>
+            <th><span class="pk" title="PRIMARY KEY sqlite_autoindex_film_actor_1">◆</span>film_id</th>
+            <td class="type">int</td>
+            <td class="null">☐</td>
+            <td><span class="flag" title="FK_film_actor_0_0">⇨ <a href="#film">film</a>.film_id</span></td>
+          </tr>
+          <tr>
+            <th>last_update</th>
+            <td class="type">timestamp</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table">
+      <h2 id="film_category"><a href="#toc" class="tocref">⇧</a>Table film_category</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:30ex">Name</th>
+            <th style="width:20ex">Type</th>
+            <th style="width:4ex">NULL</th>
+            <th>Comment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th><span class="pk" title="PRIMARY KEY sqlite_autoindex_film_category_1">◆</span>film_id</th>
+            <td class="type">int</td>
+            <td class="null">☐</td>
+            <td><span class="flag" title="FK_film_category_1_0">⇨ <a href="#film">film</a>.film_id</span></td>
+          </tr>
+          <tr>
+            <th><span class="pk" title="PRIMARY KEY sqlite_autoindex_film_category_1">◆</span>category_id</th>
+            <td class="type">smallint</td>
+            <td class="null">☐</td>
+            <td><span class="flag" title="FK_film_category_0_0">⇨ <a href="#category">category</a>.category_id</span></td>
+          </tr>
+          <tr>
+            <th>last_update</th>
+            <td class="type">timestamp</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table">
+      <h2 id="film_text"><a href="#toc" class="tocref">⇧</a>Table film_text</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:30ex">Name</th>
+            <th style="width:20ex">Type</th>
+            <th style="width:4ex">NULL</th>
+            <th>Comment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th><span class="pk" title="PRIMARY KEY sqlite_autoindex_film_text_1">◆</span>film_id</th>
+            <td class="type">smallint</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <th>title</th>
+            <td class="type">nvarchar (255)</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <th>description</th>
+            <td class="type">blob sub_type text</td>
+            <td class="null">☒</td>
+            <td>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table">
+      <h2 id="inventory"><a href="#toc" class="tocref">⇧</a>Table inventory</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:30ex">Name</th>
+            <th style="width:20ex">Type</th>
+            <th style="width:4ex">NULL</th>
+            <th>Comment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th><span class="pk" title="PRIMARY KEY sqlite_autoindex_inventory_1">◆</span>inventory_id</th>
+            <td class="type">int</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <th>film_id</th>
+            <td class="type">int</td>
+            <td class="null">☐</td>
+            <td><span class="flag" title="FK_inventory_0_0">⇨ <a href="#film">film</a>.film_id</span></td>
+          </tr>
+          <tr>
+            <th>store_id</th>
+            <td class="type">int</td>
+            <td class="null">☐</td>
+            <td><span class="flag" title="FK_inventory_1_0">⇨ <a href="#store">store</a>.store_id</span></td>
+          </tr>
+          <tr>
+            <th>last_update</th>
+            <td class="type">timestamp</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table">
+      <h2 id="language"><a href="#toc" class="tocref">⇧</a>Table language</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:30ex">Name</th>
+            <th style="width:20ex">Type</th>
+            <th style="width:4ex">NULL</th>
+            <th>Comment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th><span class="pk" title="PRIMARY KEY sqlite_autoindex_language_1">◆</span>language_id</th>
+            <td class="type">smallint</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <th>name</th>
+            <td class="type">char (20)</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <th>last_update</th>
+            <td class="type">timestamp</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table">
+      <h2 id="payment"><a href="#toc" class="tocref">⇧</a>Table payment</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:30ex">Name</th>
+            <th style="width:20ex">Type</th>
+            <th style="width:4ex">NULL</th>
+            <th>Comment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th><span class="pk" title="PRIMARY KEY sqlite_autoindex_payment_1">◆</span>payment_id</th>
+            <td class="type">int</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <th>customer_id</th>
+            <td class="type">int</td>
+            <td class="null">☐</td>
+            <td><span class="flag" title="FK_payment_1_0">⇨ <a href="#customer">customer</a>.customer_id</span></td>
+          </tr>
+          <tr>
+            <th>staff_id</th>
+            <td class="type">smallint</td>
+            <td class="null">☐</td>
+            <td><span class="flag" title="FK_payment_0_0">⇨ <a href="#staff">staff</a>.staff_id</span></td>
+          </tr>
+          <tr>
+            <th>rental_id</th>
+            <td class="type">int</td>
+            <td class="null">☒</td>
+            <td><span class="flag">DEFAULT NULL</span><span class="flag" title="FK_payment_2_0">⇨ <a href="#rental">rental</a>.rental_id</span></td>
+          </tr>
+          <tr>
+            <th>amount</th>
+            <td class="type">decimal (5, 2)</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <th>payment_date</th>
+            <td class="type">timestamp</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <th>last_update</th>
+            <td class="type">timestamp</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table">
+      <h2 id="rental"><a href="#toc" class="tocref">⇧</a>Table rental</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:30ex">Name</th>
+            <th style="width:20ex">Type</th>
+            <th style="width:4ex">NULL</th>
+            <th>Comment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th><span class="pk" title="PRIMARY KEY sqlite_autoindex_rental_1">◆</span>rental_id</th>
+            <td class="type">int</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <th>rental_date</th>
+            <td class="type">timestamp</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <th>inventory_id</th>
+            <td class="type">int</td>
+            <td class="null">☐</td>
+            <td><span class="flag" title="FK_rental_1_0">⇨ <a href="#inventory">inventory</a>.inventory_id</span></td>
+          </tr>
+          <tr>
+            <th>customer_id</th>
+            <td class="type">int</td>
+            <td class="null">☐</td>
+            <td><span class="flag" title="FK_rental_0_0">⇨ <a href="#customer">customer</a>.customer_id</span></td>
+          </tr>
+          <tr>
+            <th>return_date</th>
+            <td class="type">timestamp</td>
+            <td class="null">☒</td>
+            <td><span class="flag">DEFAULT NULL</span></td>
+          </tr>
+          <tr>
+            <th>staff_id</th>
+            <td class="type">smallint</td>
+            <td class="null">☐</td>
+            <td><span class="flag" title="FK_rental_2_0">⇨ <a href="#staff">staff</a>.staff_id</span></td>
+          </tr>
+          <tr>
+            <th>last_update</th>
+            <td class="type">timestamp</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table">
+      <h2 id="staff"><a href="#toc" class="tocref">⇧</a>Table staff</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:30ex">Name</th>
+            <th style="width:20ex">Type</th>
+            <th style="width:4ex">NULL</th>
+            <th>Comment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th><span class="pk" title="PRIMARY KEY sqlite_autoindex_staff_1">◆</span>staff_id</th>
+            <td class="type">smallint</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <th>first_name</th>
+            <td class="type">nvarchar (45)</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <th>last_name</th>
+            <td class="type">nvarchar (45)</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <th>address_id</th>
+            <td class="type">int</td>
+            <td class="null">☐</td>
+            <td><span class="flag" title="FK_staff_0_0">⇨ <a href="#address">address</a>.address_id</span></td>
+          </tr>
+          <tr>
+            <th>picture</th>
+            <td class="type">image</td>
+            <td class="null">☒</td>
+            <td><span class="flag">DEFAULT NULL</span></td>
+          </tr>
+          <tr>
+            <th>email</th>
+            <td class="type">nvarchar (50)</td>
+            <td class="null">☒</td>
+            <td><span class="flag">DEFAULT NULL</span></td>
+          </tr>
+          <tr>
+            <th>store_id</th>
+            <td class="type">int</td>
+            <td class="null">☐</td>
+            <td><span class="flag" title="FK_staff_1_0">⇨ <a href="#store">store</a>.store_id</span></td>
+          </tr>
+          <tr>
+            <th>active</th>
+            <td class="type">smallint</td>
+            <td class="null">☐</td>
+            <td><span class="flag">DEFAULT 1</span></td>
+          </tr>
+          <tr>
+            <th>username</th>
+            <td class="type">nvarchar (16)</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <th>password</th>
+            <td class="type">nvarchar (40)</td>
+            <td class="null">☒</td>
+            <td><span class="flag">DEFAULT NULL</span></td>
+          </tr>
+          <tr>
+            <th>last_update</th>
+            <td class="type">timestamp</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table">
+      <h2 id="store"><a href="#toc" class="tocref">⇧</a>Table store</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:30ex">Name</th>
+            <th style="width:20ex">Type</th>
+            <th style="width:4ex">NULL</th>
+            <th>Comment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th><span class="pk" title="PRIMARY KEY sqlite_autoindex_store_1">◆</span>store_id</th>
+            <td class="type">int</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <th>manager_staff_id</th>
+            <td class="type">smallint</td>
+            <td class="null">☐</td>
+            <td><span class="flag" title="FK_store_1_0">⇨ <a href="#staff">staff</a>.staff_id</span></td>
+          </tr>
+          <tr>
+            <th>address_id</th>
+            <td class="type">int</td>
+            <td class="null">☐</td>
+            <td><span class="flag" title="FK_store_0_0">⇨ <a href="#address">address</a>.address_id</span></td>
+          </tr>
+          <tr>
+            <th>last_update</th>
+            <td class="type">timestamp</td>
+            <td class="null">☐</td>
+            <td>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="footer">
+                    Generated by <a href="http://SqlDbDoc.codeplex.com/">DB&gt;doc</a> and <a href="https://github.com/ErikEJ/SqlCeToolbox">SQLite/SQL Server Compact Toolbox</a> on
+                    January 26, 2026, 14:14:22</div>
+  </body>
+</html>

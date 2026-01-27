@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph GraphDirection="LeftToRight" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="Database" Label="sakila_master.db" Category="Database" Group="Expanded" />
+    <Node Id="actor" Label="actor" Category="Table" Group="Collapsed" />
+    <Node Id="actor_actor_id" Label="actor_id" Category="Field Primary" Description="numeric(53,0)" />
+    <Node Id="actor_first_name" Label="first_name" Category="Field" Description="nvarchar(45)" />
+    <Node Id="actor_last_name" Label="last_name" Category="Field" Description="nvarchar(45)" />
+    <Node Id="actor_last_update" Label="last_update" Category="Field" Description="timestamp" />
+    <Node Id="address" Label="address" Category="Table" Group="Collapsed" />
+    <Node Id="address_address_id" Label="address_id" Category="Field Primary" Description="int" />
+    <Node Id="address_address" Label="address" Category="Field" Description="nvarchar(50)" />
+    <Node Id="address_address2" Label="address2" Category="Field Optional" Description="nvarchar(50)" />
+    <Node Id="address_district" Label="district" Category="Field" Description="nvarchar(20)" />
+    <Node Id="address_city_id" Label="city_id" Category="Field Foreign" Description="int" />
+    <Node Id="address_postal_code" Label="postal_code" Category="Field Optional" Description="nvarchar(10)" />
+    <Node Id="address_phone" Label="phone" Category="Field" Description="nvarchar(20)" />
+    <Node Id="address_last_update" Label="last_update" Category="Field" Description="timestamp" />
+    <Node Id="category" Label="category" Category="Table" Group="Collapsed" />
+    <Node Id="category_category_id" Label="category_id" Category="Field Primary" Description="smallint" />
+    <Node Id="category_name" Label="name" Category="Field" Description="nvarchar(25)" />
+    <Node Id="category_last_update" Label="last_update" Category="Field" Description="timestamp" />
+    <Node Id="city" Label="city" Category="Table" Group="Collapsed" />
+    <Node Id="city_city_id" Label="city_id" Category="Field Primary" Description="int" />
+    <Node Id="city_city" Label="city" Category="Field" Description="nvarchar(50)" />
+    <Node Id="city_country_id" Label="country_id" Category="Field Foreign" Description="smallint" />
+    <Node Id="city_last_update" Label="last_update" Category="Field" Description="timestamp" />
+    <Node Id="country" Label="country" Category="Table" Group="Collapsed" />
+    <Node Id="country_country_id" Label="country_id" Category="Field Primary" Description="smallint" />
+    <Node Id="country_country" Label="country" Category="Field" Description="nvarchar(50)" />
+    <Node Id="country_last_update" Label="last_update" Category="Field Optional" Description="timestamp" />
+    <Node Id="customer" Label="customer" Category="Table" Group="Collapsed" />
+    <Node Id="customer_customer_id" Label="customer_id" Category="Field Primary" Description="int" />
+    <Node Id="customer_store_id" Label="store_id" Category="Field Foreign" Description="int" />
+    <Node Id="customer_first_name" Label="first_name" Category="Field" Description="nvarchar(45)" />
+    <Node Id="customer_last_name" Label="last_name" Category="Field" Description="nvarchar(45)" />
+    <Node Id="customer_email" Label="email" Category="Field Optional" Description="nvarchar(50)" />
+    <Node Id="customer_address_id" Label="address_id" Category="Field Foreign" Description="int" />
+    <Node Id="customer_active" Label="active" Category="Field" Description="char" />
+    <Node Id="customer_create_date" Label="create_date" Category="Field" Description="timestamp" />
+    <Node Id="customer_last_update" Label="last_update" Category="Field" Description="timestamp" />
+    <Node Id="film" Label="film" Category="Table" Group="Collapsed" />
+    <Node Id="film_film_id" Label="film_id" Category="Field Primary" Description="int" />
+    <Node Id="film_title" Label="title" Category="Field" Description="nvarchar(255)" />
+    <Node Id="film_description" Label="description" Category="Field Optional" Description="blob sub_type text" />
+    <Node Id="film_release_year" Label="release_year" Category="Field Optional" Description="nvarchar(4)" />
+    <Node Id="film_language_id" Label="language_id" Category="Field Foreign" Description="smallint" />
+    <Node Id="film_original_language_id" Label="original_language_id" Category="Field Foreign" Description="smallint" />
+    <Node Id="film_rental_duration" Label="rental_duration" Category="Field" Description="smallint" />
+    <Node Id="film_rental_rate" Label="rental_rate" Category="Field" Description="decimal" />
+    <Node Id="film_length" Label="length" Category="Field Optional" Description="smallint" />
+    <Node Id="film_replacement_cost" Label="replacement_cost" Category="Field" Description="decimal" />
+    <Node Id="film_rating" Label="rating" Category="Field Optional" Description="nvarchar(10)" />
+    <Node Id="film_special_features" Label="special_features" Category="Field Optional" Description="nvarchar(100)" />
+    <Node Id="film_last_update" Label="last_update" Category="Field" Description="timestamp" />
+    <Node Id="film_actor" Label="film_actor" Category="Table" Group="Collapsed" />
+    <Node Id="film_actor_actor_id" Label="actor_id" Category="Field Primary" Description="int" />
+    <Node Id="film_actor_film_id" Label="film_id" Category="Field Primary" Description="int" />
+    <Node Id="film_actor_last_update" Label="last_update" Category="Field" Description="timestamp" />
+    <Node Id="film_category" Label="film_category" Category="Table" Group="Collapsed" />
+    <Node Id="film_category_film_id" Label="film_id" Category="Field Primary" Description="int" />
+    <Node Id="film_category_category_id" Label="category_id" Category="Field Primary" Description="smallint" />
+    <Node Id="film_category_last_update" Label="last_update" Category="Field" Description="timestamp" />
+    <Node Id="film_text" Label="film_text" Category="Table" Group="Collapsed" />
+    <Node Id="film_text_film_id" Label="film_id" Category="Field Primary" Description="smallint" />
+    <Node Id="film_text_title" Label="title" Category="Field" Description="nvarchar(255)" />
+    <Node Id="film_text_description" Label="description" Category="Field Optional" Description="blob sub_type text" />
+    <Node Id="inventory" Label="inventory" Category="Table" Group="Collapsed" />
+    <Node Id="inventory_inventory_id" Label="inventory_id" Category="Field Primary" Description="int" />
+    <Node Id="inventory_film_id" Label="film_id" Category="Field Foreign" Description="int" />
+    <Node Id="inventory_store_id" Label="store_id" Category="Field Foreign" Description="int" />
+    <Node Id="inventory_last_update" Label="last_update" Category="Field" Description="timestamp" />
+    <Node Id="language" Label="language" Category="Table" Group="Collapsed" />
+    <Node Id="language_language_id" Label="language_id" Category="Field Primary" Description="smallint" />
+    <Node Id="language_name" Label="name" Category="Field" Description="char" />
+    <Node Id="language_last_update" Label="last_update" Category="Field" Description="timestamp" />
+    <Node Id="payment" Label="payment" Category="Table" Group="Collapsed" />
+    <Node Id="payment_payment_id" Label="payment_id" Category="Field Primary" Description="int" />
+    <Node Id="payment_customer_id" Label="customer_id" Category="Field Foreign" Description="int" />
+    <Node Id="payment_staff_id" Label="staff_id" Category="Field Foreign" Description="smallint" />
+    <Node Id="payment_rental_id" Label="rental_id" Category="Field Foreign" Description="int" />
+    <Node Id="payment_amount" Label="amount" Category="Field" Description="decimal" />
+    <Node Id="payment_payment_date" Label="payment_date" Category="Field" Description="timestamp" />
+    <Node Id="payment_last_update" Label="last_update" Category="Field" Description="timestamp" />
+    <Node Id="rental" Label="rental" Category="Table" Group="Collapsed" />
+    <Node Id="rental_rental_id" Label="rental_id" Category="Field Primary" Description="int" />
+    <Node Id="rental_rental_date" Label="rental_date" Category="Field" Description="timestamp" />
+    <Node Id="rental_inventory_id" Label="inventory_id" Category="Field Foreign" Description="int" />
+    <Node Id="rental_customer_id" Label="customer_id" Category="Field Foreign" Description="int" />
+    <Node Id="rental_return_date" Label="return_date" Category="Field Optional" Description="timestamp" />
+    <Node Id="rental_staff_id" Label="staff_id" Category="Field Foreign" Description="smallint" />
+    <Node Id="rental_last_update" Label="last_update" Category="Field" Description="timestamp" />
+    <Node Id="staff" Label="staff" Category="Table" Group="Collapsed" />
+    <Node Id="staff_staff_id" Label="staff_id" Category="Field Primary" Description="smallint" />
+    <Node Id="staff_first_name" Label="first_name" Category="Field" Description="nvarchar(45)" />
+    <Node Id="staff_last_name" Label="last_name" Category="Field" Description="nvarchar(45)" />
+    <Node Id="staff_address_id" Label="address_id" Category="Field Foreign" Description="int" />
+    <Node Id="staff_picture" Label="picture" Category="Field Optional" Description="image" />
+    <Node Id="staff_email" Label="email" Category="Field Optional" Description="nvarchar(50)" />
+    <Node Id="staff_store_id" Label="store_id" Category="Field Foreign" Description="int" />
+    <Node Id="staff_active" Label="active" Category="Field" Description="smallint" />
+    <Node Id="staff_username" Label="username" Category="Field" Description="nvarchar(16)" />
+    <Node Id="staff_password" Label="password" Category="Field Optional" Description="nvarchar(40)" />
+    <Node Id="staff_last_update" Label="last_update" Category="Field" Description="timestamp" />
+    <Node Id="store" Label="store" Category="Table" Group="Collapsed" />
+    <Node Id="store_store_id" Label="store_id" Category="Field Primary" Description="int" />
+    <Node Id="store_manager_staff_id" Label="manager_staff_id" Category="Field Foreign" Description="smallint" />
+    <Node Id="store_address_id" Label="address_id" Category="Field Foreign" Description="int" />
+    <Node Id="store_last_update" Label="last_update" Category="Field" Description="timestamp" />
+  </Nodes>
+  <Links>
+    <Link Source="Database" Target="actor" Category="Contains" />
+    <Link Source="actor" Target="actor_actor_id" Category="Contains" />
+    <Link Source="actor" Target="actor_first_name" Category="Contains" />
+    <Link Source="actor" Target="actor_last_name" Category="Contains" />
+    <Link Source="actor" Target="actor_last_update" Category="Contains" />
+    <Link Source="Database" Target="address" Category="Contains" />
+    <Link Source="address" Target="address_address_id" Category="Contains" />
+    <Link Source="address" Target="address_address" Category="Contains" />
+    <Link Source="address" Target="address_address2" Category="Contains" />
+    <Link Source="address" Target="address_district" Category="Contains" />
+    <Link Source="address" Target="address_city_id" Category="Contains" />
+    <Link Source="address" Target="address_postal_code" Category="Contains" />
+    <Link Source="address" Target="address_phone" Category="Contains" />
+    <Link Source="address" Target="address_last_update" Category="Contains" />
+    <Link Source="address_city_id" Target="city_city_id" Label="FK_address_0_0" Category="Foreign Key" />
+    <Link Source="Database" Target="category" Category="Contains" />
+    <Link Source="category" Target="category_category_id" Category="Contains" />
+    <Link Source="category" Target="category_name" Category="Contains" />
+    <Link Source="category" Target="category_last_update" Category="Contains" />
+    <Link Source="Database" Target="city" Category="Contains" />
+    <Link Source="city" Target="city_city_id" Category="Contains" />
+    <Link Source="city" Target="city_city" Category="Contains" />
+    <Link Source="city" Target="city_country_id" Category="Contains" />
+    <Link Source="city" Target="city_last_update" Category="Contains" />
+    <Link Source="city_country_id" Target="country_country_id" Label="FK_city_0_0" Category="Foreign Key" />
+    <Link Source="Database" Target="country" Category="Contains" />
+    <Link Source="country" Target="country_country_id" Category="Contains" />
+    <Link Source="country" Target="country_country" Category="Contains" />
+    <Link Source="country" Target="country_last_update" Category="Contains" />
+    <Link Source="Database" Target="customer" Category="Contains" />
+    <Link Source="customer" Target="customer_customer_id" Category="Contains" />
+    <Link Source="customer" Target="customer_store_id" Category="Contains" />
+    <Link Source="customer" Target="customer_first_name" Category="Contains" />
+    <Link Source="customer" Target="customer_last_name" Category="Contains" />
+    <Link Source="customer" Target="customer_email" Category="Contains" />
+    <Link Source="customer" Target="customer_address_id" Category="Contains" />
+    <Link Source="customer" Target="customer_active" Category="Contains" />
+    <Link Source="customer" Target="customer_create_date" Category="Contains" />
+    <Link Source="customer" Target="customer_last_update" Category="Contains" />
+    <Link Source="customer_address_id" Target="address_address_id" Label="FK_customer_0_0" Category="Foreign Key" />
+    <Link Source="customer_store_id" Target="store_store_id" Label="FK_customer_1_0" Category="Foreign Key" />
+    <Link Source="Database" Target="film" Category="Contains" />
+    <Link Source="film" Target="film_film_id" Category="Contains" />
+    <Link Source="film" Target="film_title" Category="Contains" />
+    <Link Source="film" Target="film_description" Category="Contains" />
+    <Link Source="film" Target="film_release_year" Category="Contains" />
+    <Link Source="film" Target="film_language_id" Category="Contains" />
+    <Link Source="film" Target="film_original_language_id" Category="Contains" />
+    <Link Source="film" Target="film_rental_duration" Category="Contains" />
+    <Link Source="film" Target="film_rental_rate" Category="Contains" />
+    <Link Source="film" Target="film_length" Category="Contains" />
+    <Link Source="film" Target="film_replacement_cost" Category="Contains" />
+    <Link Source="film" Target="film_rating" Category="Contains" />
+    <Link Source="film" Target="film_special_features" Category="Contains" />
+    <Link Source="film" Target="film_last_update" Category="Contains" />
+    <Link Source="film_original_language_id" Target="language_language_id" Label="FK_film_0_0" Category="Foreign Key" />
+    <Link Source="film_language_id" Target="language_language_id" Label="FK_film_1_0" Category="Foreign Key" />
+    <Link Source="Database" Target="film_actor" Category="Contains" />
+    <Link Source="film_actor" Target="film_actor_actor_id" Category="Contains" />
+    <Link Source="film_actor" Target="film_actor_film_id" Category="Contains" />
+    <Link Source="film_actor" Target="film_actor_last_update" Category="Contains" />
+    <Link Source="film_actor_film_id" Target="film_film_id" Label="FK_film_actor_0_0" Category="Foreign Key" />
+    <Link Source="film_actor_actor_id" Target="actor_actor_id" Label="FK_film_actor_1_0" Category="Foreign Key" />
+    <Link Source="Database" Target="film_category" Category="Contains" />
+    <Link Source="film_category" Target="film_category_film_id" Category="Contains" />
+    <Link Source="film_category" Target="film_category_category_id" Category="Contains" />
+    <Link Source="film_category" Target="film_category_last_update" Category="Contains" />
+    <Link Source="film_category_category_id" Target="category_category_id" Label="FK_film_category_0_0" Category="Foreign Key" />
+    <Link Source="film_category_film_id" Target="film_film_id" Label="FK_film_category_1_0" Category="Foreign Key" />
+    <Link Source="Database" Target="film_text" Category="Contains" />
+    <Link Source="film_text" Target="film_text_film_id" Category="Contains" />
+    <Link Source="film_text" Target="film_text_title" Category="Contains" />
+    <Link Source="film_text" Target="film_text_description" Category="Contains" />
+    <Link Source="Database" Target="inventory" Category="Contains" />
+    <Link Source="inventory" Target="inventory_inventory_id" Category="Contains" />
+    <Link Source="inventory" Target="inventory_film_id" Category="Contains" />
+    <Link Source="inventory" Target="inventory_store_id" Category="Contains" />
+    <Link Source="inventory" Target="inventory_last_update" Category="Contains" />
+    <Link Source="inventory_film_id" Target="film_film_id" Label="FK_inventory_0_0" Category="Foreign Key" />
+    <Link Source="inventory_store_id" Target="store_store_id" Label="FK_inventory_1_0" Category="Foreign Key" />
+    <Link Source="Database" Target="language" Category="Contains" />
+    <Link Source="language" Target="language_language_id" Category="Contains" />
+    <Link Source="language" Target="language_name" Category="Contains" />
+    <Link Source="language" Target="language_last_update" Category="Contains" />
+    <Link Source="Database" Target="payment" Category="Contains" />
+    <Link Source="payment" Target="payment_payment_id" Category="Contains" />
+    <Link Source="payment" Target="payment_customer_id" Category="Contains" />
+    <Link Source="payment" Target="payment_staff_id" Category="Contains" />
+    <Link Source="payment" Target="payment_rental_id" Category="Contains" />
+    <Link Source="payment" Target="payment_amount" Category="Contains" />
+    <Link Source="payment" Target="payment_payment_date" Category="Contains" />
+    <Link Source="payment" Target="payment_last_update" Category="Contains" />
+    <Link Source="payment_staff_id" Target="staff_staff_id" Label="FK_payment_0_0" Category="Foreign Key" />
+    <Link Source="payment_customer_id" Target="customer_customer_id" Label="FK_payment_1_0" Category="Foreign Key" />
+    <Link Source="payment_rental_id" Target="rental_rental_id" Label="FK_payment_2_0" Category="Foreign Key" />
+    <Link Source="Database" Target="rental" Category="Contains" />
+    <Link Source="rental" Target="rental_rental_id" Category="Contains" />
+    <Link Source="rental" Target="rental_rental_date" Category="Contains" />
+    <Link Source="rental" Target="rental_inventory_id" Category="Contains" />
+    <Link Source="rental" Target="rental_customer_id" Category="Contains" />
+    <Link Source="rental" Target="rental_return_date" Category="Contains" />
+    <Link Source="rental" Target="rental_staff_id" Category="Contains" />
+    <Link Source="rental" Target="rental_last_update" Category="Contains" />
+    <Link Source="rental_customer_id" Target="customer_customer_id" Label="FK_rental_0_0" Category="Foreign Key" />
+    <Link Source="rental_inventory_id" Target="inventory_inventory_id" Label="FK_rental_1_0" Category="Foreign Key" />
+    <Link Source="rental_staff_id" Target="staff_staff_id" Label="FK_rental_2_0" Category="Foreign Key" />
+    <Link Source="Database" Target="staff" Category="Contains" />
+    <Link Source="staff" Target="staff_staff_id" Category="Contains" />
+    <Link Source="staff" Target="staff_first_name" Category="Contains" />
+    <Link Source="staff" Target="staff_last_name" Category="Contains" />
+    <Link Source="staff" Target="staff_address_id" Category="Contains" />
+    <Link Source="staff" Target="staff_picture" Category="Contains" />
+    <Link Source="staff" Target="staff_email" Category="Contains" />
+    <Link Source="staff" Target="staff_store_id" Category="Contains" />
+    <Link Source="staff" Target="staff_active" Category="Contains" />
+    <Link Source="staff" Target="staff_username" Category="Contains" />
+    <Link Source="staff" Target="staff_password" Category="Contains" />
+    <Link Source="staff" Target="staff_last_update" Category="Contains" />
+    <Link Source="staff_address_id" Target="address_address_id" Label="FK_staff_0_0" Category="Foreign Key" />
+    <Link Source="staff_store_id" Target="store_store_id" Label="FK_staff_1_0" Category="Foreign Key" />
+    <Link Source="Database" Target="store" Category="Contains" />
+    <Link Source="store" Target="store_store_id" Category="Contains" />
+    <Link Source="store" Target="store_manager_staff_id" Category="Contains" />
+    <Link Source="store" Target="store_address_id" Category="Contains" />
+    <Link Source="store" Target="store_last_update" Category="Contains" />
+    <Link Source="store_address_id" Target="address_address_id" Label="FK_store_0_0" Category="Foreign Key" />
+    <Link Source="store_manager_staff_id" Target="staff_staff_id" Label="FK_store_1_0" Category="Foreign Key" />
+  </Links>
+  <Styles>
+    <Style TargetType="Node" GroupLabel="Table" ValueLabel="True">
+      <Condition Expression="HasCategory('Table')" />
+      <Setter Property="Background" Value="#FFC0C0C0" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Schema" ValueLabel="True">
+      <Condition Expression="HasCategory('Schema')" />
+      <Setter Property="Background" Value="#FF7F9169" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Field Primary" ValueLabel="True">
+      <Condition Expression="HasCategory('Field Primary')" />
+      <Setter Property="Background" Value="#FF008000" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Field Optional" ValueLabel="True">
+      <Condition Expression="HasCategory('Field Optional')" />
+      <Setter Property="Background" Value="#FF808040" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Field Foreign" ValueLabel="True">
+      <Condition Expression="HasCategory('Field Foreign')" />
+      <Setter Property="Background" Value="#FF8080FF" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Field" ValueLabel="True">
+      <Condition Expression="HasCategory('Field')" />
+      <Setter Property="Background" Value="#FFC0A000" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Database" ValueLabel="True">
+      <Condition Expression="HasCategory('Database')" />
+      <Setter Property="Background" Value="#FFFFFFFF" />
+    </Style>
+  </Styles>
+</DirectedGraph>
