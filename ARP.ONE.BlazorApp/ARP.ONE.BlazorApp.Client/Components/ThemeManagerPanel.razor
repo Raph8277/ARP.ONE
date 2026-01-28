@@ -1,0 +1,176 @@
+@using System.Text.Json
+@using ARP.ONE.BlazorApp.Client.Services
+@using MudBlazor.ThemeManager
+@inject IJSRuntime JS
+@inject MudBlazor.IDialogService DialogService
+@inject MudBlazor.ISnackbar Snackbar
+@inject ThemeService ThemeService
+
+<div class="d-flex align-center pa-2">
+    <MudStack>
+        <MudThemeManagerButton OnClick="@((e) => OpenThemeManager(true))" />
+        <MudTextField T="string" Placeholder="Theme name" @bind-Value="_themeSaveName" Class="mx-2" Dense="true" />
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="SaveTheme" StartIcon="@Icons.Material.Filled.Save" Class="mr-2" Dense="true">Save</MudButton>
+        <MudSelect T="string" Value="_selectedSaved" ValueChanged="LoadTheme" Class="mr-2" Dense="true">
+            @if (_savedThemes == null || !_savedThemes.Any())
+            {
+                <MudSelectItem T="string" Disabled="true">No saved themes</MudSelectItem>
+            }
+            else
+            {
+                @foreach (var s in _savedThemes)
+                {
+                    <MudSelectItem T="string" Value="@s">@s</MudSelectItem>
+                }
+            }
+        </MudSelect>
+        <MudButton Variant="Variant.Outlined" Color="Color.Error" OnClick="ConfirmDeleteSelectedTheme" StartIcon="@Icons.Material.Filled.Delete" Dense="true" Disabled="@string.IsNullOrEmpty(_selectedSaved)">Delete</MudButton>
+        <MudThemeManager Open="_themeManagerOpen" OpenChanged="OpenThemeManager" Theme="ThemeService.ThemeManager" ThemeChanged="UpdateTheme" />
+    </MudStack>
+</div>
+
+@code {
+    private string _themeSaveName = string.Empty;
+    private List<string> _savedThemes = new();
+    private string? _selectedSaved = null;
+    private bool _themeManagerOpen = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        ThemeService.OnChange += ThemeService_OnChange;
+        await RefreshSavedList();
+    }
+
+    void OpenThemeManager(bool value)
+    {
+        _themeManagerOpen = value;
+    }
+
+    async Task UpdateTheme(ThemeManagerTheme value)
+    {
+        ThemeService.SetThemeManager(value);
+        try
+        {
+            var json = JsonSerializer.Serialize(value);
+            await JS.InvokeVoidAsync("localStorage.setItem", "arp.theme.json", json);
+        }
+        catch
+        {
+            // ignore
+        }
+    }
+
+    async Task RefreshSavedList()
+    {
+        try
+        {
+            var listJson = await JS.InvokeAsync<string>("localStorage.getItem", "arp.theme.savedList");
+            if (string.IsNullOrEmpty(listJson))
+            {
+                _savedThemes = new List<string>();
+            }
+            else
+            {
+                _savedThemes = JsonSerializer.Deserialize<List<string>>(listJson) ?? new List<string>();
+            }
+        }
+        catch
+        {
+            _savedThemes = new List<string>();
+        }
+    }
+
+    async Task SaveTheme()
+    {
+        var name = string.IsNullOrWhiteSpace(_themeSaveName) ? $"theme-{DateTime.Now:yyyyMMddHHmmss}" : _themeSaveName.Trim();
+        try
+        {
+            var json = JsonSerializer.Serialize(ThemeService.ThemeManager.Theme);
+            await JS.InvokeVoidAsync("localStorage.setItem", $"arp.theme.saved.{name}", json);
+
+            if (!_savedThemes.Contains(name))
+            {
+                _savedThemes.Add(name);
+                var listJson = JsonSerializer.Serialize(_savedThemes);
+                await JS.InvokeVoidAsync("localStorage.setItem", "arp.theme.savedList", listJson);
+            }
+            _selectedSaved = name;
+            _themeSaveName = string.Empty;
+            Snackbar.Add($"Theme '{name}' saved", MudBlazor.Severity.Success);
+        }
+        catch
+        {
+            // ignore
+            Snackbar.Add("Failed to save theme", MudBlazor.Severity.Error);
+        }
+    }
+
+    async Task LoadTheme(string name)
+    {
+        if (string.IsNullOrEmpty(name)) return;
+        _selectedSaved = name;
+        try
+        {
+            var json = await JS.InvokeAsync<string>("localStorage.getItem", $"arp.theme.saved.{name}");
+            if (!string.IsNullOrEmpty(json))
+            {
+                var theme = JsonSerializer.Deserialize<MudTheme>(json);
+                if (theme is not null)
+                {
+                    var tm = ThemeService.ThemeManager;
+                    tm.Theme = theme;
+                    ThemeService.SetThemeManager(tm);
+                    var tmJson = JsonSerializer.Serialize(tm);
+                    await JS.InvokeVoidAsync("localStorage.setItem", "arp.theme.json", tmJson);
+                    Snackbar.Add($"Theme '{name}' loaded", MudBlazor.Severity.Info);
+                }
+            }
+        }
+        catch
+        {
+            Snackbar.Add("Failed to load theme", MudBlazor.Severity.Error);
+        }
+    }
+
+    async Task DeleteSelectedTheme()
+    {
+        if (string.IsNullOrEmpty(_selectedSaved)) return;
+        try
+        {
+            await JS.InvokeVoidAsync("localStorage.removeItem", $"arp.theme.saved.{_selectedSaved}");
+            _savedThemes.Remove(_selectedSaved);
+            var listJson = JsonSerializer.Serialize(_savedThemes);
+            await JS.InvokeVoidAsync("localStorage.setItem", "arp.theme.savedList", listJson);
+            _selectedSaved = _savedThemes.FirstOrDefault();
+            Snackbar.Add("Theme deleted", MudBlazor.Severity.Success);
+        }
+        catch
+        {
+            Snackbar.Add("Failed to delete theme", MudBlazor.Severity.Error);
+        }
+    }
+
+    async Task ConfirmDeleteSelectedTheme()
+    {
+        if (string.IsNullOrEmpty(_selectedSaved)) return;
+
+        var confirmed = await DialogService.ShowMessageBox(
+            "Confirm deletion",
+            $"Delete saved theme '{_selectedSaved}'?",
+            yesText: "Delete",
+            cancelText: "Cancel");
+
+        if (confirmed == true)
+        {
+            await DeleteSelectedTheme();
+        }
+    }
+
+    void ThemeService_OnChange() => InvokeAsync(StateHasChanged);
+
+    public void Dispose()
+    {
+        ThemeService.OnChange -= ThemeService_OnChange;
+    }
+}

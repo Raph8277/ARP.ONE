@@ -1,8 +1,17 @@
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor.Services;
+using MudBlazor.ThemeManager;
 
-var builder = WebAssemblyHostBuilder.CreateDefault(args);
+internal class Program
+{
+    private static async Task Main(string[] args)
+    {
+        var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
-builder.Services.AddMudServices();
+        builder.Services.AddMudServices();
+        // Theme state shared between layout and NavMenu component
+        builder.Services.AddSingleton<ARP.ONE.BlazorApp.Client.Services.ThemeService>();
 
-await builder.Build().RunAsync();
+        await builder.Build().RunAsync();
+    }
+}

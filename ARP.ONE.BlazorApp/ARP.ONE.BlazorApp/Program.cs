@@ -1,11 +1,16 @@
 using MudBlazor.Services;
 using ARP.ONE.BlazorApp.Client.Pages;
 using ARP.ONE.BlazorApp.Components;
+using ARP.ONE.BlazorApp.Client.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add MudBlazor services
 builder.Services.AddMudServices();
+// Note: Theme manager components are used in the client; avoid calling AddMudThemeManager here to prevent missing-extension issues
+
+// Register ThemeService for server-side DI so shared components can inject it during prerender
+builder.Services.AddSingleton<ThemeService>();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()

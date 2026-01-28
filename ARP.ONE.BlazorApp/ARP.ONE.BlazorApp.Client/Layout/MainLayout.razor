@@ -1,25 +1,25 @@
 ﻿@using MudBlazor.ThemeManager
+@using System.Text.Json
+@using Microsoft.JSInterop
+@using MudBlazor
+@inject IJSRuntime JS
+@inject ARP.ONE.BlazorApp.Client.Services.ThemeService ThemeService
+@implements IDisposable
 @inherits LayoutComponentBase
-
-<MudThemeProvider Theme="@_theme" IsDarkMode="_isDarkMode" />
-
-
 
 <MudPopoverProvider />
 <MudDialogProvider />
 <MudSnackbarProvider />
 <MudLayout>
-    <MudThemeManagerButton OnClick="@((e) => OpenThemeManager(true))" />
-    <MudThemeManager Open="_themeManagerOpen" OpenChanged="OpenThemeManager" Theme="_themeManager" ThemeChanged="UpdateTheme" />
-    <MudThemeProvider Theme="_themeManager.Theme" />
-    <MudAppBar Elevation="_themeManager.AppBarElevation">
+    <MudThemeProvider Theme="ThemeService.ThemeManager.Theme" IsDarkMode="_isDarkMode" />
+    <MudAppBar Elevation="ThemeService.ThemeManager.AppBarElevation">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
         <MudText Typo="Typo.h5" Class="ml-3">Application</MudText>
         <MudSpacer />
         <MudIconButton Icon="@(DarkLightModeButtonIcon)" Color="Color.Inherit" OnClick="@DarkModeToggle" />
         <MudIconButton Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Edge="Edge.End" />
     </MudAppBar>
-    <MudDrawer @bind-Open="_drawerOpen" ClipMode="_themeManager.DrawerClipMode" Elevation="_themeManager.DrawerElevation">
+    <MudDrawer @bind-Open="_drawerOpen" ClipMode="ThemeService.ThemeManager.DrawerClipMode" Elevation="ThemeService.ThemeManager.DrawerElevation">
         <NavMenu />
     </MudDrawer>
     <MudMainContent Class="pt-16 pa-4">
@@ -33,22 +33,82 @@
     <a href="." class="reload">Reload</a>
     <span class="dismiss">🗙</span>
 </div>
-
 @code {
     private bool _drawerOpen = true;
     private bool _isDarkMode = true;
-    private MudTheme? _theme = null;
+    
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        base.OnInitialized();
+        await base.OnInitializedAsync();
 
-        _theme = new()
+        // Subscribe to theme changes so layout updates when ThemeService changes
+        ThemeService.OnChange += ThemeService_OnChange;
+
+        // Initialize theme into the ThemeService so the ThemeManager component controls it
+        var initial = new ThemeManagerTheme()
         {
-            PaletteLight = _lightPalette,
-            PaletteDark = _darkPalette,
-            LayoutProperties = new LayoutProperties()
+            Theme = new MudTheme()
+            {
+                LayoutProperties = new LayoutProperties()
+            }
         };
+        ThemeService.SetThemeManager(initial);
+
+        // Restore dark mode from localStorage if present
+        try
+        {
+            var stored = await JS.InvokeAsync<string>("localStorage.getItem", "arp.theme.isDark");
+            if (!string.IsNullOrEmpty(stored) && bool.TryParse(stored, out var val))
+                _isDarkMode = val;
+        }
+        catch
+        {
+            // ignore JS errors
+        }
+
+        // Restore full theme if present
+        try
+        {
+            var themeJson = await JS.InvokeAsync<string>("localStorage.getItem", "arp.theme.json");
+            if (!string.IsNullOrEmpty(themeJson))
+            {
+                var tm = JsonSerializer.Deserialize<ThemeManagerTheme>(themeJson);
+                if (tm is not null)
+                {
+                    ThemeService.SetThemeManager(tm);
+                }
+            }
+        }
+        catch
+        {
+            // ignore
+        }
+        // saved themes are managed in the ThemeManagerPanel component
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Ensure client-side localStorage is applied after client boot
+            try
+            {
+                var themeJson = await JS.InvokeAsync<string>("localStorage.getItem", "arp.theme.json");
+                if (!string.IsNullOrEmpty(themeJson))
+                {
+                    var tm = JsonSerializer.Deserialize<ThemeManagerTheme>(themeJson);
+                    if (tm is not null)
+                    {
+                        ThemeService.SetThemeManager(tm);
+                    }
+                }
+            }
+            catch
+            {
+                // ignore
+            }
+        }
     }
 
     private void DrawerToggle()
@@ -56,49 +116,19 @@
         _drawerOpen = !_drawerOpen;
     }
 
-    private void DarkModeToggle()
+    private async void DarkModeToggle()
     {
         _isDarkMode = !_isDarkMode;
+        try
+        {
+            await JS.InvokeVoidAsync("localStorage.setItem", "arp.theme.isDark", _isDarkMode.ToString());
+        }
+        catch
+        {
+            // ignore
+        }
     }
 
-    private readonly PaletteLight _lightPalette = new()
-    {
-        Black = "#110e2d",
-        AppbarText = "#424242",
-        AppbarBackground = "rgba(255,255,255,0.8)",
-        DrawerBackground = "#ffffff",
-        GrayLight = "#e8e8e8",
-        GrayLighter = "#f9f9f9",
-    };
-
-    private readonly PaletteDark _darkPalette = new()
-    {
-        Primary = "#7e6fff",
-        Surface = "#1e1e2d",
-        Background = "#1a1a27",
-        BackgroundGray = "#151521",
-        AppbarText = "#92929f",
-        AppbarBackground = "rgba(26,26,39,0.8)",
-        DrawerBackground = "#1a1a27",
-        ActionDefault = "#74718e",
-        ActionDisabled = "#9999994d",
-        ActionDisabledBackground = "#605f6d4d",
-        TextPrimary = "#b2b0bf",
-        TextSecondary = "#92929f",
-        TextDisabled = "#ffffff33",
-        DrawerIcon = "#92929f",
-        DrawerText = "#92929f",
-        GrayLight = "#2a2833",
-        GrayLighter = "#1e1e2d",
-        Info = "#4a86ff",
-        Success = "#3dcb6c",
-        Warning = "#ffb545",
-        Error = "#ff3f5f",
-        LinesDefault = "#33323e",
-        TableLines = "#33323e",
-        Divider = "#292838",
-        OverlayLight = "#1e1e2d80",
-    };
 
     public string DarkLightModeButtonIcon => _isDarkMode switch
     {
@@ -107,18 +137,13 @@
     };
 
 
-    private ThemeManagerTheme _themeManager = new ThemeManagerTheme();
-    public bool _themeManagerOpen = false;
+    // Theme management UI moved to ThemeManagerPanel component inside NavMenu
 
-    void OpenThemeManager(bool value)
-    {
-        _themeManagerOpen = value;
-    }
+    void ThemeService_OnChange() => InvokeAsync(StateHasChanged);
 
-    void UpdateTheme(ThemeManagerTheme value)
+    public void Dispose()
     {
-        _themeManager = value;
-        StateHasChanged();
+        ThemeService.OnChange -= ThemeService_OnChange;
     }
 }
 
