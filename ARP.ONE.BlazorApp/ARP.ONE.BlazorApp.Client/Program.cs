@@ -11,6 +11,7 @@ internal class Program
         builder.Services.AddMudServices();
         // Theme state shared between layout and NavMenu component
         builder.Services.AddSingleton<ARP.ONE.BlazorApp.Client.Services.ThemeService>();
+        builder.Services.AddScoped(_ => new HttpClient());
 
         await builder.Build().RunAsync();
     }

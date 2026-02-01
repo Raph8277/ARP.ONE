@@ -2,6 +2,8 @@
 @using ARP.ONE.BlazorApp.Client.Services
 @using MudBlazor.ThemeManager
 @inject IJSRuntime JS
+@inject HttpClient Http
+@inject NavigationManager Nav
 @inject MudBlazor.IDialogService DialogService
 @inject MudBlazor.ISnackbar Snackbar
 @inject ThemeService ThemeService
@@ -65,15 +67,9 @@
     {
         try
         {
-            var listJson = await JS.InvokeAsync<string>("localStorage.getItem", "arp.theme.savedList");
-            if (string.IsNullOrEmpty(listJson))
-            {
-                _savedThemes = new List<string>();
-            }
-            else
-            {
-                _savedThemes = JsonSerializer.Deserialize<List<string>>(listJson) ?? new List<string>();
-            }
+            var url = new Uri(new Uri(Nav.BaseUri), "api/themes");
+            var themes = await Http.GetFromJsonAsync<List<string>>(url);
+            _savedThemes = themes ?? new List<string>();
         }
         catch
         {
@@ -86,15 +82,16 @@
         var name = string.IsNullOrWhiteSpace(_themeSaveName) ? $"theme-{DateTime.Now:yyyyMMddHHmmss}" : _themeSaveName.Trim();
         try
         {
-            var json = JsonSerializer.Serialize(ThemeService.ThemeManager.Theme);
-            await JS.InvokeVoidAsync("localStorage.setItem", $"arp.theme.saved.{name}", json);
-
-            if (!_savedThemes.Contains(name))
+            var json = JsonSerializer.Serialize(ThemeService.ThemeManager);
+            var url = new Uri(new Uri(Nav.BaseUri), "api/themes");
+            var response = await Http.PostAsJsonAsync(url, new ThemeSaveRequest(name, json));
+            if (!response.IsSuccessStatusCode)
             {
-                _savedThemes.Add(name);
-                var listJson = JsonSerializer.Serialize(_savedThemes);
-                await JS.InvokeVoidAsync("localStorage.setItem", "arp.theme.savedList", listJson);
+                Snackbar.Add("Failed to save theme", MudBlazor.Severity.Error);
+                return;
             }
+
+            await RefreshSavedList();
             _selectedSaved = name;
             _themeSaveName = string.Empty;
             Snackbar.Add($"Theme '{name}' saved", MudBlazor.Severity.Success);
@@ -112,17 +109,15 @@
         _selectedSaved = name;
         try
         {
-            var json = await JS.InvokeAsync<string>("localStorage.getItem", $"arp.theme.saved.{name}");
-            if (!string.IsNullOrEmpty(json))
+            var url = new Uri(new Uri(Nav.BaseUri), $"api/themes/{Uri.EscapeDataString(name)}");
+            var dto = await Http.GetFromJsonAsync<ThemeDto>(url);
+            if (dto is not null && !string.IsNullOrEmpty(dto.Json))
             {
-                var theme = JsonSerializer.Deserialize<MudTheme>(json);
-                if (theme is not null)
+                var savedTheme = JsonSerializer.Deserialize<ThemeManagerTheme>(dto.Json);
+                if (savedTheme is not null)
                 {
-                    var tm = ThemeService.ThemeManager;
-                    tm.Theme = theme;
-                    ThemeService.SetThemeManager(tm);
-                    var tmJson = JsonSerializer.Serialize(tm);
-                    await JS.InvokeVoidAsync("localStorage.setItem", "arp.theme.json", tmJson);
+                    ThemeService.SetThemeManager(savedTheme);
+                    await JS.InvokeVoidAsync("localStorage.setItem", "arp.theme.json", dto.Json);
                     Snackbar.Add($"Theme '{name}' loaded", MudBlazor.Severity.Info);
                 }
             }
@@ -138,10 +133,15 @@
         if (string.IsNullOrEmpty(_selectedSaved)) return;
         try
         {
-            await JS.InvokeVoidAsync("localStorage.removeItem", $"arp.theme.saved.{_selectedSaved}");
-            _savedThemes.Remove(_selectedSaved);
-            var listJson = JsonSerializer.Serialize(_savedThemes);
-            await JS.InvokeVoidAsync("localStorage.setItem", "arp.theme.savedList", listJson);
+            var url = new Uri(new Uri(Nav.BaseUri), $"api/themes/{Uri.EscapeDataString(_selectedSaved)}");
+            var response = await Http.DeleteAsync(url);
+            if (!response.IsSuccessStatusCode)
+            {
+                Snackbar.Add("Failed to delete theme", MudBlazor.Severity.Error);
+                return;
+            }
+
+            await RefreshSavedList();
             _selectedSaved = _savedThemes.FirstOrDefault();
             Snackbar.Add("Theme deleted", MudBlazor.Severity.Success);
         }
@@ -173,4 +173,7 @@
     {
         ThemeService.OnChange -= ThemeService_OnChange;
     }
+
+    record ThemeSaveRequest(string Name, string Json);
+    record ThemeDto(string Name, string Json);
 }
