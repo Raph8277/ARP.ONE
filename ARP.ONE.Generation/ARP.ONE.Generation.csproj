@@ -10,4 +10,13 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.22" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DTO\" />
+  </ItemGroup>
+
+  <Target Name="RenameDtoFiles" AfterTargets="Build">
+    <Message Importance="high" Text="Renommage des fichiers DTO (*Dto.cs) via Rename-Dtos.ps1" />
+    <Exec Command="powershell -NoProfile -ExecutionPolicy Bypass -File &quot;$(ProjectDir)Rename-Dtos.ps1&quot;" />
+  </Target>
+
 </Project>

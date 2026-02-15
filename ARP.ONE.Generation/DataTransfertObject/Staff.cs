@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace ARP.ONE.Generation.Models;
+namespace ARP.ONE.Domain.DataTransfertObject;
 
 [Table("staff")]
 [Index("AddressId", Name = "idx_fk_staff_address_id")]

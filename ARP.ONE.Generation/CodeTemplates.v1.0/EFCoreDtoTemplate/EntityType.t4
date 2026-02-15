@@ -1,0 +1,63 @@
+<#@ template hostSpecific="true" #>
+<#@ output extension=".cs" #>
+
+<#@ assembly name="Microsoft.EntityFrameworkCore" #>
+<#@ assembly name="Microsoft.EntityFrameworkCore.Design" #>
+<#@ assembly name="Microsoft.EntityFrameworkCore.Relational" #>
+<#@ assembly name="Microsoft.Extensions.DependencyInjection.Abstractions" #>
+
+<#@ parameter name="EntityType" type="Microsoft.EntityFrameworkCore.Metadata.IEntityType" #>
+<#@ parameter name="Options" type="Microsoft.EntityFrameworkCore.Scaffolding.ModelCodeGenerationOptions" #>
+<#@ parameter name="NamespaceHint" type="System.String" #>
+
+<#@ import namespace="System" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="Microsoft.EntityFrameworkCore" #>
+<#@ import namespace="Microsoft.EntityFrameworkCore.Design" #>
+<#@ import namespace="Microsoft.EntityFrameworkCore.Scaffolding" #>
+<#@ import namespace="Microsoft.Extensions.DependencyInjection" #>
+
+<#
+    // Ignore join entities
+    if (EntityType.IsSimpleManyToManyJoinEntityType())
+        return "";
+
+    var services = (IServiceProvider)Host;
+    var code = services.GetRequiredService<ICSharpHelper>();
+
+    var dtoSuffix = "Dto";
+    var dtoNamespace = string.IsNullOrWhiteSpace(NamespaceHint)
+        ? "ARP.ONE.Generation.DataTransfertObject"
+        : NamespaceHint;
+
+    var props = EntityType.GetProperties()
+        .Where(p => !p.IsShadowProperty())
+        .OrderBy(p => p.GetColumnOrder() ?? -1)
+        .ToList();
+#>
+// TEMPLATE DTO IS USED
+// GENERATED DTO BY EFCoreDtoTemplate (DTO)
+namespace <#= dtoNamespace #>;
+
+public sealed class <#= EntityType.Name + dtoSuffix #>
+{
+<#
+    foreach (var p in props)
+    {
+        var needsNullable =
+            Options.UseNullableReferenceTypes &&
+            p.IsNullable &&
+            !p.ClrType.IsValueType;
+
+        var initializer =
+            Options.UseNullableReferenceTypes &&
+            !p.IsNullable &&
+            !p.ClrType.IsValueType
+            ? " = null!;"
+            : "";
+#>
+    public <#= code.Reference(p.ClrType) #><#= needsNullable ? "?" : "" #> <#= p.Name #> { get; set; }<#= initializer #>
+<#
+    }
+#>
+}

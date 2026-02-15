@@ -4,13 +4,13 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace ARP.ONE.Generation.Models;
+namespace ARP.ONE.Domain.DataTransfertObject;
 
 [Keyless]
-public partial class StaffList
+public partial class CustomerList
 {
-    [Column("ID", TypeName = "SMALLINT")]
-    public short? Id { get; set; }
+    [Column("ID", TypeName = "INT")]
+    public int? Id { get; set; }
 
     [Column("name")]
     public string Name { get; set; }
@@ -29,6 +29,9 @@ public partial class StaffList
 
     [Column("country", TypeName = "VARCHAR(50)")]
     public string Country { get; set; }
+
+    [Column("notes")]
+    public string Notes { get; set; }
 
     [Column("SID", TypeName = "INT")]
     public int? Sid { get; set; }
